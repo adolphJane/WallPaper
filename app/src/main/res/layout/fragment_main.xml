@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smartRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srlDragRate="0.7"
+        app:srlHeaderMaxDragRate="1.3"
+        app:srlHeaderHeight="100dp"
+        app:srlHeaderInsetStart="70dp"
+        app:srlHeaderTriggerRate="0.5">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/ry_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="70dp"
+            android:clipToPadding="false"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</layout>

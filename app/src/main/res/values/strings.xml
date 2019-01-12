@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Wallpaper</string>
+    <string name="filter">过滤</string>
+    <string name="wallpaper_type">壁纸分类</string>
+    <string name="wallpaper_size">壁纸尺寸</string>
+    <string name="wallpaper_color">壁纸颜色</string>
+    <string name="wallpaper_more">更多</string>
+    <string name="wallpaper_pack">收起</string>
+    <string name="transition_image_name">transition_image</string>
+    <string name="header_behavior">com.magicalrice.adolph.wallpaper.widget.ToolBarViewBehavior</string>
+</resources>

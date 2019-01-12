@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="blackish_green">#333B3D</color>
+    <color name="galleryCurrentItemOverlay">@android:color/transparent</color>
+    <color name="galleryItemOverlay">#cc000000</color>
+    <color name="black">#000000</color>
+    <color name="black2">#14000000</color>
+    <color name="black3">#1E000000</color>
+    <color name="gray">#929292</color>
+    <color name="gray2">#37363B</color>
+    <color name="blue1">#1CFDFE</color>
+    <color name="blue2">#00B2FF</color>
+    <color name="blue3">#007AFF</color>
+    <color name="yellow1">#FEC060</color>
+    <color name="yellow2">#FEF244</color>
+    <color name="orange">#F0992D</color>
+    <color name="red">#E20520</color>
+    <color name="pink">#EB9CAD</color>
+    <color name="purple">#D500E4</color>
+    <color name="green">#B3D470</color>
+    <color name="blue4">#27B6EA</color>
+</resources>
