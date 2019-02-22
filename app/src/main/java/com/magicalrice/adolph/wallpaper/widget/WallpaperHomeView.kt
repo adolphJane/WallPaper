@@ -1,14 +1,12 @@
 package com.magicalrice.adolph.wallpaper.widget
 
 import android.content.Context
+import android.support.annotation.ColorRes
 import android.support.v4.content.ContextCompat
-import android.text.TextUtils
 import android.util.AttributeSet
-import android.view.Gravity
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.RelativeLayout.LayoutParams
-import android.widget.TextView
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.magicalrice.adolph.wallpaper.R
 import com.magicalrice.adolph.wallpaper.bean.WallpaperBean
@@ -17,6 +15,7 @@ import com.magicalrice.adolph.wallpaper.utils.ScreenUtils
 class WallpaperHomeView : RelativeLayout {
     private lateinit var img: ImageView
     private var type: Int = 1
+    private val colorList = arrayOf(R.color.placeholder1,R.color.placeholder2,R.color.placeholder3,R.color.placeholder4,R.color.placeholder5,R.color.placeholder6,R.color.placeholder7,R.color.placeholder8)
 
     private val homePadding = ScreenUtils.dp2px(context, 0f)
 
@@ -37,7 +36,10 @@ class WallpaperHomeView : RelativeLayout {
         type = a?.getInteger(R.styleable.WallpaperHomeView_type, 1) ?: 1
         a?.recycle()
 
-//        val i = (0..8)
+        val i = (0 until 8).random()
+        context?.let {
+            setBackgroundColor(ContextCompat.getColor(context,colorList[i]))
+        }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

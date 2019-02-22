@@ -6,8 +6,10 @@ import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import android.widget.TextView
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.jaeger.library.StatusBarUtil
@@ -35,6 +37,8 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     private lateinit var filterList: RecyclerView
     private lateinit var pagerAdapter: ViewPagerAdapter
     private var wallpaperType = 1
+    private var dp10 = 0
+    private var dp20 = 0
 
     override fun onInit(savedInstanceState: Bundle?) {
         binding = getDataBinding()
@@ -46,6 +50,8 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     }
 
     private fun initView() {
+        dp10 = ScreenUtils.dp2px(this,10f)
+        dp20 = ScreenUtils.dp2px(this,20f)
         initFilterView()
         initTabPager()
     }
@@ -76,29 +82,46 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
     private fun initFilterView() {
         filterList = RecyclerView(this)
-        filterList.setPadding(ScreenUtils.dp2px(this,10f),ScreenUtils.dp2px(this,20f),ScreenUtils.dp2px(this,10f),ScreenUtils.dp2px(this,10f))
-        val layoutManager = FlexibleFlexboxLayoutManager(this)
-        layoutManager.flexDirection = FlexDirection.ROW
-        layoutManager.flexWrap = FlexWrap.WRAP
-        filterList.layoutManager = layoutManager
+        filterList.setPadding(dp10,dp20,dp10,dp10)
 
         styleAdapter = WallpaperFilterAdapter(R.layout.layout_item_filter, Utils.getWallpaperStyle(wallpaperType))
         styleAdapter.setOnItemChildClickListener { adapter, _, position ->
             styleAdapter.clearData(position)
             viewModule.setData((adapter.data[position] as WallpaperFilterBean).id,3,wallpaperType)
         }
+        val styleText = TextView(this)
+        styleText.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+        styleText.text = "壁纸分类"
+        styleText.setPadding(dp10,0,0,dp20)
+        styleText.textSize = 16f
+        styleText.setTextColor(ContextCompat.getColor(this,R.color.white1))
+        styleAdapter.addHeaderView(styleText)
 
         sizeAdapter = WallpaperFilterAdapter(R.layout.layout_item_filter, Utils.getWallpaperSize(wallpaperType))
         sizeAdapter.setOnItemChildClickListener { adapter, _, position ->
             sizeAdapter.clearData(position)
             viewModule.setData((adapter.data[position] as WallpaperFilterBean).id,2,wallpaperType)
         }
+        val sizeText = TextView(this)
+        sizeText.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+        sizeText.text = "壁纸尺寸"
+        sizeText.textSize = 16f
+        sizeText.setTextColor(ContextCompat.getColor(this,R.color.white1))
+        sizeText.setPadding(dp10,0,0,dp20)
+        sizeAdapter.addHeaderView(sizeText)
 
         colorAdapter = WallpaperFilterAdapter(R.layout.layout_item_filter, Utils.getWallpaperColor(wallpaperType))
         colorAdapter.setOnItemChildClickListener { adapter, _, position ->
             colorAdapter.clearData(position)
             viewModule.setData((adapter.data[position] as WallpaperFilterBean).id,1,wallpaperType)
         }
+        val colorText = TextView(this)
+        colorText.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+        colorText.text = "壁纸颜色"
+        colorText.textSize = 16f
+        colorText.setTextColor(ContextCompat.getColor(this,R.color.white1))
+        colorText.setPadding(dp10,0,0,dp20)
+        colorAdapter.addHeaderView(colorText)
     }
 
     private fun initTabPager() {
@@ -170,6 +193,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     }
 
     override fun choiceColor() {
+        filterList.layoutManager = GridLayoutManager(this,3)
         filterList.adapter = colorAdapter
         val params = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
         SnackbarUtils.with(binding.menuFilter).setDuration(SnackbarUtils.LENGTH_INDEFINITE).show()
@@ -178,6 +202,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     }
 
     override fun choiceStyle() {
+        filterList.layoutManager = GridLayoutManager(this,4)
         filterList.adapter = styleAdapter
         val params = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
         SnackbarUtils.with(binding.menuFilter).setDuration(SnackbarUtils.LENGTH_INDEFINITE).show()
@@ -186,6 +211,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     }
 
     override fun choiceSize() {
+        filterList.layoutManager = GridLayoutManager(this,3)
         filterList.adapter = sizeAdapter
         val params = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
         SnackbarUtils.with(binding.menuFilter).setDuration(SnackbarUtils.LENGTH_INDEFINITE).show()

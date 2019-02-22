@@ -22,7 +22,7 @@ class WallpaperFilterAdapter(@LayoutRes layoutId: Int, @Nullable data: List<Wall
             if (item?.isSelect) {
                 textView?.setTextColor(ContextCompat.getColor(mContext,R.color.yellow1))
             } else {
-                textView?.setTextColor(ContextCompat.getColor(mContext,R.color.white))
+                textView?.setTextColor(ContextCompat.getColor(mContext,R.color.white1))
             }
         } else if (item?.theme == 1) {
             textView?.visibility = View.GONE

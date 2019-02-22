@@ -1,73 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="listener"
-            type="com.magicalrice.adolph.wallpaper.view.main.MainListener"/>
+            type="com.magicalrice.adolph.wallpaper.view.main.MainListener" />
     </data>
 
     <LinearLayout
         android:layout_width="240dp"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_gravity="start"
         android:gravity="center"
-        android:background="@color/blackish_green">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/desktop_wallpaper"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="桌面壁纸"
-            android:textSize="20sp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/orange2"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="我的收藏"
+                android:layout_marginBottom="30dp"
+                android:textColor="@color/white1"
+                android:textSize="18sp"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
 
-        <TextView
-            android:id="@+id/phone_wallpaper"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="手机壁纸"
-            android:textSize="20sp"
-            android:layout_marginTop="15dp"/>
-
-        <TextView
-            android:id="@+id/subject_wallpaper"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="壁纸专题"
-            android:textSize="20sp"
-            android:layout_marginTop="15dp"/>
-
-        <TextView
-            android:id="@+id/subject_pictures"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="图片专题"
-            android:textSize="20sp"
-            android:layout_marginTop="15dp"/>
-
-        <TextView
-            android:id="@+id/beauty_pictures"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="美女图片"
-            android:textSize="20sp"
-            android:layout_marginTop="15dp"/>
-
-        <TextView
-            android:id="@+id/pictures_collection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="精选合集"
-            android:textSize="20sp"
-            android:layout_marginTop="15dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/white1"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的下载"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/orange2"
+                android:textSize="18sp"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
 
     </LinearLayout>
 </layout>

@@ -2,14 +2,17 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="colorAccent">#FFB85E</color>
+    <color name="white1">#FFFFFFFF</color>
+    <color name="white2">#80FFFFFF</color>
     <color name="blackish_green">#333B3D</color>
     <color name="galleryCurrentItemOverlay">@android:color/transparent</color>
     <color name="galleryItemOverlay">#cc000000</color>
     <color name="black">#000000</color>
     <color name="black2">#14000000</color>
     <color name="black3">#1E000000</color>
+    <color name="black4">#333333</color>
+    <color name="black5">#B3333333</color>
     <color name="gray">#929292</color>
     <color name="gray2">#37363B</color>
     <color name="blue1">#1CFDFE</color>
@@ -17,10 +20,19 @@
     <color name="blue3">#007AFF</color>
     <color name="yellow1">#FEC060</color>
     <color name="yellow2">#FEF244</color>
-    <color name="orange">#F0992D</color>
+    <color name="orange1">#F0992D</color>
+    <color name="orange2">#F7A135</color>
     <color name="red">#E20520</color>
     <color name="pink">#EB9CAD</color>
     <color name="purple">#D500E4</color>
     <color name="green">#B3D470</color>
     <color name="blue4">#27B6EA</color>
+    <color name="placeholder1">#FFDEDE</color>
+    <color name="placeholder2">#C2DAFB</color>
+    <color name="placeholder3">#CBD6EA</color>
+    <color name="placeholder4">#CCE8F5</color>
+    <color name="placeholder5">#F6BDAB</color>
+    <color name="placeholder6">#E4EFE9</color>
+    <color name="placeholder7">#FAF2C1</color>
+    <color name="placeholder8">#E7F3B5</color>
 </resources>
