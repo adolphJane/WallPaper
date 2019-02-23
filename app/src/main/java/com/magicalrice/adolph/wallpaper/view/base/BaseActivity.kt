@@ -9,7 +9,6 @@ import android.support.annotation.LayoutRes
 import android.support.v7.app.AppCompatActivity
 import android.view.inputmethod.InputMethodManager
 import com.magicalrice.adolph.wallpaper.utils.PermissionUtils
-import com.magicalrice.project.base_libs.utils.AppManager
 import io.reactivex.disposables.CompositeDisposable
 
 /**
@@ -27,14 +26,12 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AppManager.getInstance().addActivity(this)
         dataBinding = DataBindingUtil.setContentView(this, layoutId)
         onInit(savedInstanceState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        AppManager.getInstance().removeActivity(this)
         mDisposable.clear()
     }
 

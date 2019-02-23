@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv_lock_screen"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/lock_screen_browser"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:background="@color/white1"
+        android:textColor="@color/black4"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray3"/>
+
+    <TextView
+        android:id="@+id/tv_main_screen"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="18sp"
+        android:background="@color/white1"
+        android:text="@string/main_screen_browser"
+        android:gravity="center"
+        android:textColor="@color/black4"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="7dp"
+        android:background="@color/gray3"/>
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white1"
+        android:text="@string/cancel"
+        android:textColor="@color/black4"
+        android:textSize="18sp"
+        android:gravity="center"/>
+</LinearLayout>

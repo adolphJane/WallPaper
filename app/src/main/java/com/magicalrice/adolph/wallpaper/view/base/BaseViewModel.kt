@@ -14,7 +14,7 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun showToast(content: String?) {
         if (content?.isEmpty() == false) {
-            ToastUtils.showToast(getApplication(), content)
+            ToastUtils.showShort(content)
         }
     }
 }

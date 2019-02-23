@@ -23,7 +23,7 @@ object WallpaperParse {
             }
             beanList
         } catch (e: IllegalArgumentException) {
-            ToastUtils.showToast(WallpaperApplication.instance,"加载失败")
+            ToastUtils.showShort("加载失败")
             null
         }
     }
@@ -35,7 +35,7 @@ object WallpaperParse {
             val num = documents.first().text().toIntOrNull()
             num ?: 0
         } catch (e: IllegalArgumentException) {
-            ToastUtils.showToast(WallpaperApplication.instance,"加载失败")
+            ToastUtils.showShort("加载失败")
             0
         }
     }
@@ -54,7 +54,7 @@ object WallpaperParse {
             val bean = GalleryImageBean(imgPath,width,height)
             bean
         } catch (e: IllegalArgumentException) {
-            ToastUtils.showToast(WallpaperApplication.instance,"加载失败")
+            ToastUtils.showShort("加载失败")
             null
         }
     }

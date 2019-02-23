@@ -1,16 +1,16 @@
-package com.magicalrice.project.base_libs.utils
+package com.magicalrice.adolph.wallpaper.utils
 
-import android.support.v4.app.FragmentActivity
-import java.lang.Exception
+import android.app.Activity
+import android.app.Application
+import android.content.Context
+import android.os.Bundle
 import java.util.*
 
-class AppManager private constructor() {
-    private var activityStack: Stack<FragmentActivity>
-
-    init {
-        activityStack = Stack()
-    }
-
+class AppManager private constructor() : Application.ActivityLifecycleCallbacks {
+    private var activityStack: Stack<Activity> = Stack()
+    private lateinit var application: Application
+    private var foregroundCount = 0
+    private var foregroundListener: OnAppStatusChangedListener? = null
     companion object {
         fun getInstance() = Holder.INSTANCE
     }
@@ -19,30 +19,97 @@ class AppManager private constructor() {
         val INSTANCE = AppManager()
     }
 
-    fun addActivity(activity: FragmentActivity) {
-        if (activityStack == null) {
-            activityStack = Stack()
-        }
-        activityStack.add(activity)
+    fun init(application: Application) {
+        this.application = application
+        application.registerActivityLifecycleCallbacks(this)
     }
 
-    fun removeActivity(activity: FragmentActivity) {
-        if (activityStack != null && activityStack.contains(activity)) {
+    fun getApp() : Application {
+        return this.application
+    }
+
+    fun setForegroundListener(listener: OnAppStatusChangedListener) {
+        this.foregroundListener = listener
+    }
+
+    override fun onActivityPaused(activity: Activity?) {
+
+    }
+
+    override fun onActivityResumed(activity: Activity?) {
+        foregroundCount++
+        if (foregroundCount > 0) {
+            this.foregroundListener?.onForeground()
+        }
+    }
+
+    fun getTopActivityOrApp() : Context{
+        return if (isAppForeground()) {
+            val topActivity = getTopActivity()
+            topActivity ?: getApp()
+        } else {
+            getApp()
+        }
+    }
+
+    override fun onActivityStarted(activity: Activity?) {
+
+    }
+
+    override fun onActivityDestroyed(activity: Activity?) {
+        removeActivity(activity)
+    }
+
+    override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {
+
+    }
+
+    override fun onActivityStopped(activity: Activity?) {
+        if (foregroundCount > 0) {
+            foregroundCount--
+        } else {
+            this.foregroundListener?.onBackground()
+        }
+    }
+
+    override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
+        addActivity(activity)
+    }
+
+    private fun addActivity(activity: Activity?) {
+        activity?.let {
+            activityStack.add(it)
+        }
+    }
+
+    private fun removeActivity(activity: Activity?) {
+        if (activityStack.contains(activity)) {
             activityStack.remove(activity)
         }
     }
 
-    fun getActivity(clazz: Class<Any>) : FragmentActivity?{
+    fun isAppForeground() : Boolean {
+        if (foregroundCount > 0) {
+            return true
+        }
+        return false
+    }
+
+    fun getActivity(clazz: Class<Any>) : Activity?{
         activityStack.forEach {
-            if (it.javaClass.equals(clazz)) {
+            if (it.javaClass == clazz) {
                 return it
             }
         }
         return null
     }
 
-    fun getTopActivity() : FragmentActivity{
-        return activityStack.lastElement()
+    fun getTopActivity() : Activity? {
+        return if (activityStack.isNotEmpty()) {
+            activityStack.lastElement()
+        } else {
+            null
+        }
     }
 
     fun finishTopActivity() {
@@ -51,6 +118,10 @@ class AppManager private constructor() {
             activityStack.remove(activity)
             activity.finish()
         }
+    }
+
+    fun getActivityList(): MutableList<Activity> {
+        return activityStack.toMutableList()
     }
 
     fun finishAllActivity() {
@@ -64,10 +135,17 @@ class AppManager private constructor() {
     fun exitApp() {
         try {
             finishAllActivity()
-            android.os.Process.killProcess(android.os.Process.myPid())
-            System.exit(0)
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    interface OnAppStatusChangedListener {
+        fun onForeground()
+        fun onBackground()
+    }
+
+    interface OnActivityDestroyedListener {
+        fun onActivityDestroyed(activity: Activity)
     }
 }

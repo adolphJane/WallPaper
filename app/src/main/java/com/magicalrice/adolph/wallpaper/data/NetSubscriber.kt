@@ -158,7 +158,7 @@ class NetSubscriber<T> : Observer<T> {
 
     private fun showToastError(content: String?) {
         if (content?.isEmpty() == false) {
-            ToastUtils.showToast(mContext, content)
+            ToastUtils.showShort(content)
         }
     }
 

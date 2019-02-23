@@ -8,4 +8,10 @@
     <string name="wallpaper_pack">收起</string>
     <string name="transition_image_name">transition_image</string>
     <string name="header_behavior">com.magicalrice.adolph.wallpaper.widget.ToolBarViewBehavior</string>
+    <string name="browse">浏览</string>
+    <string name="download">下载</string>
+    <string name="collect">收藏</string>
+    <string name="lock_screen_browser">锁屏浏览</string>
+    <string name="main_screen_browser">主屏浏览</string>
+    <string name="cancel">取消</string>
 </resources>

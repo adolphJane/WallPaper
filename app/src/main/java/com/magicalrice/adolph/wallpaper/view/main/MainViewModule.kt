@@ -13,7 +13,6 @@ import com.magicalrice.adolph.wallpaper.data.WPApi
 import com.magicalrice.adolph.wallpaper.data.service.WallpaperParse
 import com.magicalrice.adolph.wallpaper.utils.RxUtils
 import com.magicalrice.adolph.wallpaper.view.base.BaseViewModel
-import com.magicalrice.project.base_libs.utils.AppManager
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.trello.rxlifecycle2.android.lifecycle.kotlin.bindToLifecycle
 import io.reactivex.Observable
