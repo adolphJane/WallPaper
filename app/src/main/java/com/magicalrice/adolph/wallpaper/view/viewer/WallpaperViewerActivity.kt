@@ -2,15 +2,17 @@ package com.magicalrice.adolph.wallpaper.view.viewer
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.FragmentActivity
-import android.view.View
+import android.util.Log
 import android.widget.ImageView
 import com.jaeger.library.StatusBarUtil
 import com.magicalrice.adolph.wallpaper.R
 import com.magicalrice.adolph.wallpaper.bean.GalleryImageBean
 import com.magicalrice.adolph.wallpaper.databinding.ActivityWallpaperViewerBinding
+import com.magicalrice.adolph.wallpaper.utils.DialogUtils
 import com.magicalrice.adolph.wallpaper.view.base.BaseActivity
 import com.magicalrice.adolph.wallpaper.widget.GlideApp
 
@@ -26,7 +28,10 @@ class WallpaperViewerActivity(override val layoutId: Int = R.layout.activity_wal
         StatusBarUtil.setTranslucentForImageView(this,0,null)
 
         binding.listener = this
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
 
+        viewModel.loadCurrentWallpaper(imgBean?.imgSrc ?: "",this)
         viewModel.initAnimator(binding.rlTopbar,binding.rlBottombar)
 
         GlideApp.with(this)
@@ -34,6 +39,8 @@ class WallpaperViewerActivity(override val layoutId: Int = R.layout.activity_wal
             .load(imgBean?.imgSrc)
             .centerInside()
             .into(binding.imgView)
+
+        Log.e("ss",Build.MODEL)
     }
 
     override fun onBrowser() {
@@ -41,7 +48,7 @@ class WallpaperViewerActivity(override val layoutId: Int = R.layout.activity_wal
     }
 
     override fun onDownload() {
-        viewModel.downloadWallpaper()
+        viewModel.downloadWallpaper(this)
     }
 
     override fun onCollect() {

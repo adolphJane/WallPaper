@@ -2,9 +2,12 @@ package com.magicalrice.adolph.wallpaper.view.viewer
 
 import android.app.Dialog
 import android.arch.lifecycle.ViewModelProviders
+import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentActivity
+import android.support.v4.content.ContextCompat
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -26,11 +29,13 @@ class WallpaperBrowserDialogFragment : DialogFragment(), View.OnClickListener {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = Dialog(activity!!, R.style.BottomDialog)
         val view = LayoutInflater.from(activity).inflate(R.layout.fragment_dialog_wallpaper_browser,null,false)
-        tvLock = view.findViewById(R.id.tv_lock_screen)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            tvLock = view.findViewById(R.id.tv_lock_screen)
+            tvLock.setOnClickListener(this)
+        }
         tvMain = view.findViewById(R.id.tv_main_screen)
         tvCancel = view.findViewById(R.id.tv_cancel)
 
-        tvLock.setOnClickListener(this)
         tvMain.setOnClickListener(this)
         tvCancel.setOnClickListener(this)
 
@@ -42,18 +47,20 @@ class WallpaperBrowserDialogFragment : DialogFragment(), View.OnClickListener {
         super.onStart()
         val window = dialog.window
         val params = window?.attributes
+        window?.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(context!!, android.R.color.transparent)))
         params?.gravity = Gravity.BOTTOM
         params?.width = WindowManager.LayoutParams.MATCH_PARENT
         params?.height = WindowManager.LayoutParams.WRAP_CONTENT
+        window?.attributes = params
     }
 
     override fun onClick(v: View?) {
         when(v?.id) {
             R.id.tv_lock_screen -> {
-
+                viewModel.setWallpaper(1,activity)
             }
             R.id.tv_main_screen -> {
-
+                viewModel.setWallpaper(2,activity)
             }
             R.id.tv_cancel -> dismissAllowingStateLoss()
         }

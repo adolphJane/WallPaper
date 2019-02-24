@@ -5,6 +5,21 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tv_lock_screen"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/lock_screen_browser"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:background="@color/white1"
+        android:textColor="@color/black4"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray3"/>
+
+    <TextView
         android:id="@+id/tv_main_screen"
         android:layout_width="match_parent"
         android:layout_height="50dp"
