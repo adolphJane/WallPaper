@@ -2,8 +2,8 @@ package com.magicalrice.adolph.wallpaper.utils.toast
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.support.v4.app.NotificationManagerCompat
 import android.widget.Toast
+import androidx.core.app.NotificationManagerCompat
 
 object ToastFactory {
     fun makeToast(context: Context, text: CharSequence, duration: Int): IToast {

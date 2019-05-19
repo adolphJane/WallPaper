@@ -3,9 +3,9 @@ package com.magicalrice.adolph.wallpaper.utils
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
-import android.support.v4.app.ActivityCompat
-import android.support.v4.app.FragmentActivity
-import android.support.v4.content.ContextCompat
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import com.magicalrice.adolph.wallpaper.view.base.BaseActivity
 
 class PermissionUtils private constructor(){
@@ -19,7 +19,7 @@ class PermissionUtils private constructor(){
         val instance = PermissionUtils()
     }
 
-    fun checkPermission(activity: FragmentActivity,permission:String) : Boolean{
+    fun checkPermission(activity: FragmentActivity, permission:String) : Boolean{
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(activity,permission) != PackageManager.PERMISSION_GRANTED) {
                 return false

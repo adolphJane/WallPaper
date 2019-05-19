@@ -3,14 +3,14 @@ package com.magicalrice.adolph.wallpaper.view.viewer
 import android.animation.ObjectAnimator
 import android.app.Application
 import android.app.WallpaperManager
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Observer
 import android.graphics.Bitmap
 import android.os.Build
-import android.support.v4.app.FragmentActivity
 import android.view.Gravity
 import android.view.View
 import android.view.animation.AccelerateInterpolator
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.magicalrice.adolph.wallpaper.R
@@ -19,7 +19,6 @@ import com.magicalrice.adolph.wallpaper.bean.WallpaperCollectBean
 import com.magicalrice.adolph.wallpaper.utils.IOTask
 import com.magicalrice.adolph.wallpaper.utils.RxUtils
 import com.magicalrice.adolph.wallpaper.utils.ToastUtils
-import com.magicalrice.adolph.wallpaper.utils.UITask
 import com.magicalrice.adolph.wallpaper.view.base.BaseViewModel
 import com.magicalrice.adolph.wallpaper.widget.GlideApp
 import com.magicalrice.adolph.wallpaper.widget.ToastCustomView

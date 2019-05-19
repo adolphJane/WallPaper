@@ -2,12 +2,12 @@ package com.magicalrice.adolph.wallpaper.view.base
 
 import android.content.Context
 import android.content.pm.PackageManager
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.v7.app.AppCompatActivity
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import com.magicalrice.adolph.wallpaper.utils.PermissionUtils
 import io.reactivex.disposables.CompositeDisposable
 

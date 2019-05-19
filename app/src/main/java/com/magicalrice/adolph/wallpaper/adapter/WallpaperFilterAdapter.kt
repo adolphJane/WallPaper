@@ -1,10 +1,10 @@
 package com.magicalrice.adolph.wallpaper.adapter
 
-import android.support.annotation.LayoutRes
-import android.support.annotation.Nullable
-import android.support.v4.content.ContextCompat
 import android.view.View
 import android.widget.TextView
+import androidx.annotation.LayoutRes
+import androidx.annotation.Nullable
+import androidx.core.content.ContextCompat
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.magicalrice.adolph.wallpaper.R

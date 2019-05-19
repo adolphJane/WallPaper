@@ -1,18 +1,17 @@
 package com.magicalrice.adolph.wallpaper.view.viewer
 
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.app.FragmentActivity
 import android.util.Log
 import android.widget.ImageView
+import androidx.core.app.ActivityOptionsCompat
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProviders
 import com.jaeger.library.StatusBarUtil
 import com.magicalrice.adolph.wallpaper.R
 import com.magicalrice.adolph.wallpaper.bean.GalleryImageBean
 import com.magicalrice.adolph.wallpaper.databinding.ActivityWallpaperViewerBinding
-import com.magicalrice.adolph.wallpaper.utils.DialogUtils
 import com.magicalrice.adolph.wallpaper.view.base.BaseActivity
 import com.magicalrice.adolph.wallpaper.widget.GlideApp
 
@@ -39,8 +38,6 @@ class WallpaperViewerActivity(override val layoutId: Int = R.layout.activity_wal
             .load(imgBean?.imgSrc)
             .centerInside()
             .into(binding.imgView)
-
-        Log.e("ss",Build.MODEL)
     }
 
     override fun onBrowser() {

@@ -1,16 +1,13 @@
 package com.magicalrice.adolph.wallpaper.utils
 
 import android.content.Context
-import android.support.v7.app.AlertDialog
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import com.airbnb.lottie.LottieAnimationView
 import com.magicalrice.adolph.wallpaper.R
 

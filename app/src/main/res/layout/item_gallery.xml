@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/img_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -19,4 +19,4 @@
             android:layout_height="match_parent"
             android:background="@color/galleryItemOverlay" />
 
-</android.support.v7.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

@@ -1,8 +1,8 @@
 package com.magicalrice.adolph.wallpaper.adapter
 
-import android.support.annotation.LayoutRes
-import android.support.annotation.Nullable
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
+import androidx.annotation.Nullable
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder

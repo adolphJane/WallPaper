@@ -1,11 +1,11 @@
 package com.magicalrice.adolph.wallpaper.widget
 
 import android.content.Context
-import android.support.annotation.DrawableRes
-import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 import com.magicalrice.adolph.wallpaper.R
 
 class ToastCustomView : RelativeLayout {

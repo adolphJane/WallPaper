@@ -9,15 +9,15 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
-import android.support.annotation.ColorInt
-import android.support.annotation.DrawableRes
-import android.support.annotation.LayoutRes
-import android.support.annotation.StringRes
-import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
+import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import com.magicalrice.adolph.wallpaper.utils.toast.IToast
 import com.magicalrice.adolph.wallpaper.utils.toast.ToastFactory
 

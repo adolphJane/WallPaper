@@ -1,8 +1,8 @@
 package com.magicalrice.adolph.wallpaper.view.main
 
 import android.app.Application
-import android.arch.lifecycle.MutableLiveData
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.MutableLiveData
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.magicalrice.adolph.wallpaper.bean.WallpaperBean
@@ -29,7 +29,7 @@ class MainViewModule(application: Application) : BaseViewModel(application) {
         phoneSelect.value = WallpaperSelectBean(0,0,0)
     }
 
-    fun getWallpaper(activity: FragmentActivity,wallpaperType: Int,isRefresh: Boolean)  : Observable<ArrayList<WallpaperBean>?>? {
+    fun getWallpaper(activity: FragmentActivity, wallpaperType: Int, isRefresh: Boolean)  : Observable<ArrayList<WallpaperBean>?>? {
         if (isRefresh) {
             pageNo = 1
         } else {

@@ -1,7 +1,7 @@
 package com.magicalrice.adolph.wallpaper.data.local
 
-import android.arch.lifecycle.LiveData
-import android.arch.persistence.room.*
+import androidx.lifecycle.LiveData
+import androidx.room.*
 import com.magicalrice.adolph.wallpaper.bean.WallpaperCollectBean
 
 @Dao

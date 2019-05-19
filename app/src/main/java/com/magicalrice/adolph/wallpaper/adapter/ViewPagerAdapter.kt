@@ -1,14 +1,14 @@
 package com.magicalrice.adolph.wallpaper.adapter
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 
 class ViewPagerAdapter : FragmentPagerAdapter {
     private var data: ArrayList<String>
     private var fragmentList: ArrayList<Fragment>
 
-    constructor(fm: FragmentManager,data: ArrayList<String>, fragmentList: ArrayList<Fragment>) : super(fm) {
+    constructor(fm: FragmentManager, data: ArrayList<String>, fragmentList: ArrayList<Fragment>) : super(fm) {
         this.data = data
         this.fragmentList = fragmentList
     }

@@ -1,12 +1,11 @@
 package com.magicalrice.adolph.wallpaper.widget
 
 import android.content.Context
-import android.support.annotation.ColorRes
-import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.RelativeLayout.LayoutParams
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.magicalrice.adolph.wallpaper.R
 import com.magicalrice.adolph.wallpaper.bean.WallpaperBean

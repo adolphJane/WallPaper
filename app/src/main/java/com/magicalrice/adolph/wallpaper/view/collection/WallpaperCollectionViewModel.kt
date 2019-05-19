@@ -1,12 +1,11 @@
 package com.magicalrice.adolph.wallpaper.view.collection
 
 import android.app.Application
-import android.arch.lifecycle.MutableLiveData
-import android.support.v4.app.FragmentActivity
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.MutableLiveData
 import com.magicalrice.adolph.wallpaper.bean.GalleryImageBean
 import com.magicalrice.adolph.wallpaper.data.NetSubscriber
-import com.magicalrice.adolph.wallpaper.data.RetrofitErrorListener
 import com.magicalrice.adolph.wallpaper.data.RetrofitNextListener
 import com.magicalrice.adolph.wallpaper.data.WPApi
 import com.magicalrice.adolph.wallpaper.data.service.WallpaperParse

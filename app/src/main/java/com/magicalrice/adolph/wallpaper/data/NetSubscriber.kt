@@ -1,8 +1,7 @@
 package com.magicalrice.adolph.wallpaper.data
 
 import android.content.Context
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import com.magicalrice.adolph.wallpaper.utils.ToastUtils
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import io.reactivex.Observer

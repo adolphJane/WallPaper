@@ -20,6 +20,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -31,9 +32,11 @@ android {
     dataBinding {
         enabled = true
     }
+
     androidExtensions {
         experimental = true
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -43,13 +46,14 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
-    implementation "com.android.support:design:$supportLibraryVersion"
-    implementation "com.android.support.constraint:constraint-layout:$constraintVersion"
-    testImplementation "junit:junit:$junitVersion"
-    androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
-
+    implementation "androidx.appcompat:appcompat:1.0.2"
+    implementation "com.google.android.material:material:$supportLibraryVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintVersion"
+    testImplementation "androidx.test.ext:junit:$junitVersion"
+    androidTestImplementation "androidx.test:runner:$testRunnerVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    implementation 'com.android.support:multidex:1.0.3'
+    kapt "androidx.databinding:databinding-compiler:$rootProject.ext.gradle_version"
     //jsoup
     implementation "org.jsoup:jsoup:$jsoupVersion"
 
@@ -65,13 +69,13 @@ dependencies {
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanaryVersion"
 
     //bugly
-    implementation 'com.tencent.bugly:crashreport:latest.release'
-    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
+    implementation 'com.tencent.bugly:crashreport:3.0.0'
+//    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
 
     //arch
-    implementation "android.arch.lifecycle:runtime:$archVersion"
-    implementation "android.arch.lifecycle:extensions:$archVersion"
-    kapt "android.arch.lifecycle:compiler:$archVersion"
+    implementation "androidx.lifecycle:lifecycle-runtime:$archVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:$archVersion"
+    kapt "androidx.lifecycle:lifecycle-compiler:$archVersion"
 
     //gson
     implementation "com.google.code.gson:gson:$gsonVersion"
@@ -119,7 +123,7 @@ dependencies {
     implementation 'com.getbase:floatingactionbutton:1.10.1'
 
     //room
-    implementation "android.arch.persistence.room:runtime:1.1.1"
-    implementation "android.arch.persistence.room:rxjava2:1.1.1"
-    kapt "android.arch.persistence.room:compiler:1.1.1"
+    implementation "androidx.room:room-runtime:2.1.0-beta01"
+    implementation "androidx.room:room-rxjava2:2.1.0-beta01"
+    kapt "androidx.room:room-compiler:2.1.0-beta01"
 }

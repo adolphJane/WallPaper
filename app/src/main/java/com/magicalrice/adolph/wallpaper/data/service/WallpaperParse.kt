@@ -1,10 +1,8 @@
 package com.magicalrice.adolph.wallpaper.data.service
 
-import com.magicalrice.adolph.wallpaper.WallpaperApplication
 import com.magicalrice.adolph.wallpaper.bean.GalleryImageBean
 import com.magicalrice.adolph.wallpaper.bean.WallpaperBean
 import com.magicalrice.adolph.wallpaper.utils.ToastUtils
-import com.orhanobut.logger.Logger
 import org.jsoup.Jsoup
 
 object WallpaperParse {

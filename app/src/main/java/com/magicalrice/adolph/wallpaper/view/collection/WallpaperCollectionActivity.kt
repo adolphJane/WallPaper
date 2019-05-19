@@ -1,13 +1,13 @@
 package com.magicalrice.adolph.wallpaper.view.collection
 
 import android.animation.ArgbEvaluator
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
-import android.support.v4.content.ContextCompat
 import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.chad.library.adapter.base.BaseViewHolder
 import com.jaeger.library.StatusBarUtil
 import com.magicalrice.adolph.wallpaper.R

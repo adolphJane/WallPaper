@@ -1,10 +1,9 @@
 package com.magicalrice.adolph.wallpaper
 
-import android.app.Application
-import android.arch.persistence.room.Room
-import android.databinding.DataBindingComponent
-import android.databinding.DataBindingUtil
-import com.magicalrice.adolph.wallpaper.BuildConfig
+import androidx.databinding.DataBindingComponent
+import androidx.databinding.DataBindingUtil
+import androidx.multidex.MultiDexApplication
+import androidx.room.Room
 import com.magicalrice.adolph.wallpaper.data.local.WallpaperDatabase
 import com.magicalrice.adolph.wallpaper.utils.AppManager
 import com.magicalrice.adolph.wallpaper.utils.BindUtils
@@ -18,7 +17,7 @@ import com.tencent.bugly.crashreport.CrashReport.UserStrategy
 /**
  * Created by Adolph on 2018/7/18.
  */
-class WallpaperApplication : Application() {
+class WallpaperApplication : MultiDexApplication() {
     private lateinit var mWallpaperDatabase: WallpaperDatabase
 
     override fun onCreate() {

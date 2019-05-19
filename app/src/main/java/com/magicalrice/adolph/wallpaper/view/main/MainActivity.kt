@@ -1,17 +1,15 @@
 package com.magicalrice.adolph.wallpaper.view.main
 
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import android.widget.TextView
-import com.google.android.flexbox.FlexDirection
-import com.google.android.flexbox.FlexWrap
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.tabs.TabLayout
 import com.jaeger.library.StatusBarUtil
 import com.magicalrice.adolph.wallpaper.R
 import com.magicalrice.adolph.wallpaper.adapter.ViewPagerAdapter
@@ -22,7 +20,6 @@ import com.magicalrice.adolph.wallpaper.utils.ScreenUtils
 import com.magicalrice.adolph.wallpaper.utils.SnackbarUtils
 import com.magicalrice.adolph.wallpaper.utils.Utils
 import com.magicalrice.adolph.wallpaper.view.base.BaseActivity
-import com.magicalrice.adolph.wallpaper.widget.FlexibleFlexboxLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseActivity(),MainListener {

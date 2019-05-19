@@ -1,7 +1,7 @@
 package com.magicalrice.adolph.wallpaper.utils
 
-import android.databinding.BindingAdapter
 import android.widget.TextView
+import androidx.databinding.BindingAdapter
 
 object BindUtils {
     @BindingAdapter("isSelected")

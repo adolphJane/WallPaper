@@ -1,10 +1,11 @@
 package com.magicalrice.adolph.wallpaper.view.main
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.magicalrice.adolph.wallpaper.R
 import com.magicalrice.adolph.wallpaper.adapter.WallpaperHomeAdapter
 import com.magicalrice.adolph.wallpaper.bean.WallpaperBean
@@ -71,7 +72,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         getBinding().ryList.adapter = homeAdapter
         if (wallpaperType == 1) {
             getBinding().ryList.layoutManager =
-                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                    LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         } else {
             getBinding().ryList.layoutManager = GridLayoutManager(context, 2)
         }

@@ -1,7 +1,7 @@
 package com.magicalrice.adolph.wallpaper.utils.toast
 
-import android.support.annotation.StringRes
 import android.view.View
+import androidx.annotation.StringRes
 
 interface IToast {
     fun show()
