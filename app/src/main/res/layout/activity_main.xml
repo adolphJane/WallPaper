@@ -68,27 +68,17 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
                 app:menu_fab_size="normal"
-                app:menu_fab_label="关闭"
                 app:menu_colorNormal="@color/orange1"
                 app:menu_colorPressed="@color/colorAccent"
                 app:menu_colorRipple="@color/colorAccent"
                 app:layout_behavior="com.magicalrice.adolph.wallpaper.widget.FloatingActionBehavior">
                 <com.github.clans.fab.FloatingActionButton
-                    android:id="@+id/fab_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:fab_label="颜色"
-                    app:fab_colorNormal="@color/orange1"
-                    app:fab_colorPressed="@color/colorAccent"
-                    app:fab_colorRipple="@color/colorAccent"
-                    android:onClick="@{v -> listener.choiceColor()}" />
-                <com.github.clans.fab.FloatingActionButton
                     android:id="@+id/fab_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:fab_colorNormal="@color/orange1"
-                    app:fab_colorPressed="@color/colorAccent"
-                    app:fab_colorRipple="@color/colorAccent"
+                    app:fab_colorNormal="@color/orange3"
+                    app:fab_colorPressed="@color/orange3"
+                    app:fab_colorRipple="@color/orange3"
                     app:fab_label="样式"
                     android:onClick="@{v -> listener.choiceStyle()}"/>
                 <com.github.clans.fab.FloatingActionButton
@@ -96,10 +86,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:fab_label="大小"
-                    app:fab_colorNormal="@color/orange1"
-                    app:fab_colorPressed="@color/colorAccent"
-                    app:fab_colorRipple="@color/colorAccent"
+                    app:fab_colorNormal="@color/blue5"
+                    app:fab_colorPressed="@color/blue5"
+                    app:fab_colorRipple="@color/blue5"
                     android:onClick="@{v -> listener.choiceSize()}" />
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/fab_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:fab_label="颜色"
+                    app:fab_colorNormal="@color/yellow3"
+                    app:fab_colorPressed="@color/yellow3"
+                    app:fab_colorRipple="@color/yellow3"
+                    android:onClick="@{v -> listener.choiceColor()}" />
             </com.github.clans.fab.FloatingActionMenu>
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>

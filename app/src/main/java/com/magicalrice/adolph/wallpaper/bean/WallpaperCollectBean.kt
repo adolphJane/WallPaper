@@ -8,5 +8,6 @@ import androidx.room.PrimaryKey
 data class WallpaperCollectBean(
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0,
+    var type: Int = 1,
     var imgPath: String
 )

@@ -1,6 +1,8 @@
 package com.magicalrice.adolph.wallpaper.view.viewer
 
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Application
 import android.app.WallpaperManager
 import android.graphics.Bitmap
@@ -16,21 +18,23 @@ import com.bumptech.glide.request.transition.Transition
 import com.magicalrice.adolph.wallpaper.R
 import com.magicalrice.adolph.wallpaper.WallpaperApplication
 import com.magicalrice.adolph.wallpaper.bean.WallpaperCollectBean
-import com.magicalrice.adolph.wallpaper.utils.IOTask
-import com.magicalrice.adolph.wallpaper.utils.RxUtils
-import com.magicalrice.adolph.wallpaper.utils.ToastUtils
+import com.magicalrice.adolph.wallpaper.utils.*
 import com.magicalrice.adolph.wallpaper.view.base.BaseViewModel
 import com.magicalrice.adolph.wallpaper.widget.GlideApp
 import com.magicalrice.adolph.wallpaper.widget.ToastCustomView
+import java.io.File
+import java.lang.ref.WeakReference
 
 class WallpaperViewerViewModel(application: Application) : BaseViewModel(application) {
-    var isToolbarShow: Boolean = true
+    var isBarShow: Boolean = true
     val wallpaper = MutableLiveData<WallpaperCollectBean>()
     private var imgPath = ""
-    private var animatorTop: ObjectAnimator? = null
+    private var isDownload: Boolean = false
+    private var animatorDelete: ObjectAnimator? = null
     private var animatorBottom: ObjectAnimator? = null
-    private var animatorTopRe: ObjectAnimator? = null
+    private var animatorDeleteRe: ObjectAnimator? = null
     private var animatorBottomRe: ObjectAnimator? = null
+    private var dialogFragment: WallpaperBrowserDialogFragment? = null
     private val dao = (application as WallpaperApplication).getDatabase().wallpaperListDao()
 
     fun loadCurrentWallpaper(imgUrl: String,activity: FragmentActivity) {
@@ -41,10 +45,10 @@ class WallpaperViewerViewModel(application: Application) : BaseViewModel(applica
     }
 
     fun openBrowser(activity: FragmentActivity) {
-        WallpaperBrowserDialogFragment.start(activity)
+        dialogFragment = WallpaperBrowserDialogFragment.start(activity)
     }
 
-    fun collectWallpaper(activity: FragmentActivity) {
+    fun collectWallpaper(activity: FragmentActivity,type: Int) {
         if (wallpaper.value != null) {
 
             RxUtils.doOnIOThread(object : IOTask {
@@ -58,7 +62,7 @@ class WallpaperViewerViewModel(application: Application) : BaseViewModel(applica
             ToastUtils.setGravity(Gravity.CENTER, 0, 0)
                 .showCustomShort(view)
         } else {
-            val bean = WallpaperCollectBean(imgPath = imgPath)
+            val bean = WallpaperCollectBean(type = type,imgPath = imgPath)
             RxUtils.doOnIOThread(object : IOTask {
                 override fun doOnIO() {
                     dao.insertWallpaper(bean)
@@ -72,7 +76,21 @@ class WallpaperViewerViewModel(application: Application) : BaseViewModel(applica
         }
     }
 
-    fun downloadWallpaper(activity: FragmentActivity) {
+    fun downloadWallpaper(activity: FragmentActivity, type: Int) {
+        val symbol = imgPath.split("/").last().split(".").first()
+        if (type == 1) {
+            val appDir = File(activity.getExternalFilesDir(null), "wallpaper/desktop/$symbol.jpg")
+            if (appDir.exists()) {
+                showToast("该壁纸已经保存")
+                return
+            }
+        } else {
+            val appDir = File(activity.getExternalFilesDir(null), "wallpaper/phone/$symbol.jpg")
+            if (appDir.exists()) {
+                showToast("该壁纸已经保存")
+                return
+            }
+        }
         GlideApp.with(activity)
             .asBitmap()
             .load(imgPath)
@@ -81,21 +99,26 @@ class WallpaperViewerViewModel(application: Application) : BaseViewModel(applica
                     resource: Bitmap,
                     transition: Transition<in Bitmap>?
                 ) {
-
+                    BitmapUtils.saveImageToGallery(activity,if (type == 1) "wallpaper/desktop" else "wallpaper/phone",resource, symbol, object : ImageFinishListener {
+                        override fun imgFinish(path: String) {
+                            showToast("壁纸保存完成")
+                        }
+                    })
                 }
             })
     }
 
-    fun initAnimator(topbar: View?, bottomBar: View?) {
-        topbar?.let {
+    fun initAnimator(tvDelete: View?, bottomBar: View?, isDownload: Boolean) {
+        this.isDownload = isDownload
+        tvDelete?.let {
             it.post {
-                val topBarHeight = it.height.toFloat()
-                animatorTop = ObjectAnimator.ofFloat(topbar, "translationY", 0f, topBarHeight)
+                val deleteBarHeight = it.height.toFloat()
+                animatorDelete = ObjectAnimator.ofFloat(tvDelete, "translationY", 0f, deleteBarHeight)
                     .setDuration(300)
-                animatorTop?.interpolator = AccelerateInterpolator()
-                animatorTopRe = ObjectAnimator.ofFloat(topbar, "translationY", topBarHeight, 0f)
+                animatorDelete?.interpolator = AccelerateInterpolator()
+                animatorDeleteRe = ObjectAnimator.ofFloat(tvDelete, "translationY", deleteBarHeight, 0f)
                     .setDuration(300)
-                animatorTopRe?.interpolator = AccelerateInterpolator()
+                animatorDeleteRe?.interpolator = AccelerateInterpolator()
             }
         }
         bottomBar?.let {
@@ -116,52 +139,48 @@ class WallpaperViewerViewModel(application: Application) : BaseViewModel(applica
     }
 
     fun showWallpaper() {
-        if (isToolbarShow) {
-            if (animatorTop?.isRunning == false || animatorBottom?.isRunning == false) {
-                animatorTop?.start()
-                animatorBottom?.start()
-                isToolbarShow = false
+        if (isBarShow) {
+            if (isDownload) {
+                if (animatorDelete?.isRunning == false) {
+                    animatorDelete?.start()
+                }
+            } else {
+                if (animatorBottom?.isRunning == false) {
+                    animatorBottom?.start()
+                }
             }
+            isBarShow = false
         } else {
-            if (animatorTopRe?.isRunning == false || animatorBottomRe?.isRunning == false) {
-                animatorTopRe?.start()
-                animatorBottomRe?.start()
-                isToolbarShow = true
+            if (isDownload) {
+                if (animatorDeleteRe?.isRunning == false) {
+                    animatorDeleteRe?.start()
+                }
+            } else {
+                if (animatorBottomRe?.isRunning == false) {
+                    animatorBottomRe?.start()
+                }
             }
+            isBarShow = true
         }
     }
 
-    fun setWallpaper(type: Int,activity: FragmentActivity?) {
+    @SuppressLint("InlinedApi")
+    fun setWallpaper(type: Int, activity: WallpaperViewerActivity?) {
         activity?.let {
-            val wallpaperManager = WallpaperManager.getInstance(it)
-            try {
-                GlideApp.with(it)
-                    .asBitmap()
-                    .load(imgPath)
-                    .into(object : SimpleTarget<Bitmap>() {
-                        override fun onResourceReady(
-                            resource: Bitmap,
-                            transition: Transition<in Bitmap>?
-                        ) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                wallpaperManager.setBitmap(resource,null,true,if (type == 1) WallpaperManager.FLAG_LOCK  else WallpaperManager.FLAG_SYSTEM)
-                            } else {
-                                wallpaperManager.setBitmap(resource)
-                            }
-                        }
-                    })
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            SetWallpaperTask(WeakReference(it), imgPath, if (type == 1) WallpaperManager.FLAG_LOCK else WallpaperManager.FLAG_SYSTEM).execute()
         }
+    }
+
+    fun dismissDialog() {
+        dialogFragment?.dismissAllowingStateLoss()
     }
 
     fun dismiss() {
-        animatorTop?.cancel()
-        animatorTop = null
+        animatorDelete?.cancel()
+        animatorDelete = null
 
-        animatorTopRe?.cancel()
-        animatorTopRe = null
+        animatorDeleteRe?.cancel()
+        animatorDeleteRe = null
 
         animatorBottom?.cancel()
         animatorBottom = null

@@ -19,8 +19,13 @@ class WallpaperViewerActivity(override val layoutId: Int = R.layout.activity_wal
     private lateinit var binding: ActivityWallpaperViewerBinding
     private lateinit var viewModel: WallpaperViewerViewModel
     private var imgBean: GalleryImageBean? = null
+    private var wallpaperType: Int = 1
+    private var isDownload: Boolean = false
+
     override fun onInit(savedInstanceState: Bundle?) {
         imgBean = intent.getParcelableExtra("img")
+        wallpaperType = intent.getIntExtra("wallpaperType",1)
+        isDownload = intent.getBooleanExtra("isDownload",false)
         viewModel = ViewModelProviders.of(this).get(WallpaperViewerViewModel::class.java)
         binding = getDataBinding()
 
@@ -29,9 +34,10 @@ class WallpaperViewerActivity(override val layoutId: Int = R.layout.activity_wal
         binding.listener = this
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+        binding.isDownload = isDownload
 
         viewModel.loadCurrentWallpaper(imgBean?.imgSrc ?: "",this)
-        viewModel.initAnimator(binding.rlTopbar,binding.rlBottombar)
+        viewModel.initAnimator(binding.tvDelete,binding.rlBottombar,isDownload)
 
         GlideApp.with(this)
             .asBitmap()
@@ -45,11 +51,11 @@ class WallpaperViewerActivity(override val layoutId: Int = R.layout.activity_wal
     }
 
     override fun onDownload() {
-        viewModel.downloadWallpaper(this)
+        viewModel.downloadWallpaper(this, wallpaperType)
     }
 
     override fun onCollect() {
-        viewModel.collectWallpaper(this)
+        viewModel.collectWallpaper(this, wallpaperType)
     }
 
     override fun showWallpaper() {
@@ -61,12 +67,20 @@ class WallpaperViewerActivity(override val layoutId: Int = R.layout.activity_wal
         viewModel.dismiss()
     }
 
+    fun dismissBrowser() {
+        viewModel.dismissDialog()
+    }
+
     companion object {
-        fun start(activity: FragmentActivity, imgBean: GalleryImageBean, shareView: ImageView) {
+        fun start(activity: FragmentActivity?, imgBean: GalleryImageBean, shareView: ImageView, wallpaperType: Int, isDownload: Boolean) {
             val intent = Intent(activity, WallpaperViewerActivity::class.java)
             intent.putExtra("img", imgBean)
-            val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,shareView,activity.getString(R.string.transition_image_name)).toBundle()
-            activity.startActivity(intent,bundle)
+            intent.putExtra("wallpaperType", wallpaperType)
+            intent.putExtra("isDownload", isDownload)
+            activity?.let {
+                val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,shareView,activity.getString(R.string.transition_image_name)).toBundle()
+                activity.startActivity(intent,bundle)
+            }
         }
     }
 }

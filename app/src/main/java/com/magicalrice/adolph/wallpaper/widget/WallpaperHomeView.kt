@@ -65,14 +65,17 @@ class WallpaperHomeView : RelativeLayout {
         )
     }
 
-    fun setData(data: WallpaperBean?) {
+    fun getImage() : ImageView {
+        return img
+    }
+
+    fun setImageUrl(imgUrl: String?) {
         post {
             GlideApp.with(this)
-                .load(data?.imgPath)
+                .load(imgUrl)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .override(img.measuredWidth, img.measuredHeight)
                 .into(img)
         }
-
     }
 }

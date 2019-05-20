@@ -29,7 +29,12 @@
             android:screenOrientation="portrait"/>
 
         <activity android:name=".view.viewer.WallpaperViewerActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".view.local.CollectDownloadActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

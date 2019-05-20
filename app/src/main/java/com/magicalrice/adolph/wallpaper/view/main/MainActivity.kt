@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,10 +21,11 @@ import com.magicalrice.adolph.wallpaper.utils.ScreenUtils
 import com.magicalrice.adolph.wallpaper.utils.SnackbarUtils
 import com.magicalrice.adolph.wallpaper.utils.Utils
 import com.magicalrice.adolph.wallpaper.view.base.BaseActivity
+import com.magicalrice.adolph.wallpaper.view.local.CollectDownloadActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseActivity(),MainListener {
-
+class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseActivity(),
+    MainListener {
     private val TAG = "MainActivity"
     private lateinit var binding: ActivityMainBinding
     private lateinit var toggle: ActionBarDrawerToggle
@@ -47,10 +49,13 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     }
 
     private fun initView() {
-        dp10 = ScreenUtils.dp2px(this,10f)
-        dp20 = ScreenUtils.dp2px(this,20f)
+        dp10 = ScreenUtils.dp2px(this, 10f)
+        dp20 = ScreenUtils.dp2px(this, 20f)
         initFilterView()
         initTabPager()
+        binding.fabColor.setImageResource(R.drawable.ic_home_color)
+        binding.fabSize.setImageResource(R.drawable.ic_home_size)
+        binding.fabStyle.setImageResource(R.drawable.ic_home_style)
     }
 
     private fun initFab() {
@@ -74,50 +79,68 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         toggle.syncState()
         draw_layout.addDrawerListener(toggle)
 
-        StatusBarUtil.setTranslucentForCoordinatorLayout(this,0)
+        StatusBarUtil.setTranslucentForCoordinatorLayout(this, 0)
     }
 
     private fun initFilterView() {
         filterList = RecyclerView(this)
-        filterList.setPadding(dp10,dp20,dp10,dp10)
+        filterList.setPadding(dp10, dp20, dp10, dp10)
 
-        styleAdapter = WallpaperFilterAdapter(R.layout.layout_item_filter, Utils.getWallpaperStyle(wallpaperType))
+        styleAdapter = WallpaperFilterAdapter(
+            R.layout.layout_item_filter,
+            Utils.getWallpaperStyle(wallpaperType)
+        )
         styleAdapter.setOnItemChildClickListener { adapter, _, position ->
             styleAdapter.clearData(position)
-            viewModule.setData((adapter.data[position] as WallpaperFilterBean).id,3,wallpaperType)
+            viewModule.setData((adapter.data[position] as WallpaperFilterBean).id, 3, wallpaperType)
         }
         val styleText = TextView(this)
-        styleText.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+        styleText.layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         styleText.text = "壁纸分类"
-        styleText.setPadding(dp10,0,0,dp20)
+        styleText.setPadding(dp10, 0, 0, dp20)
         styleText.textSize = 16f
-        styleText.setTextColor(ContextCompat.getColor(this,R.color.white1))
+        styleText.setTextColor(ContextCompat.getColor(this, R.color.white1))
         styleAdapter.addHeaderView(styleText)
 
-        sizeAdapter = WallpaperFilterAdapter(R.layout.layout_item_filter, Utils.getWallpaperSize(wallpaperType))
+        sizeAdapter = WallpaperFilterAdapter(
+            R.layout.layout_item_filter,
+            Utils.getWallpaperSize(wallpaperType)
+        )
         sizeAdapter.setOnItemChildClickListener { adapter, _, position ->
             sizeAdapter.clearData(position)
-            viewModule.setData((adapter.data[position] as WallpaperFilterBean).id,2,wallpaperType)
+            viewModule.setData((adapter.data[position] as WallpaperFilterBean).id, 2, wallpaperType)
         }
         val sizeText = TextView(this)
-        sizeText.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+        sizeText.layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         sizeText.text = "壁纸尺寸"
         sizeText.textSize = 16f
-        sizeText.setTextColor(ContextCompat.getColor(this,R.color.white1))
-        sizeText.setPadding(dp10,0,0,dp20)
+        sizeText.setTextColor(ContextCompat.getColor(this, R.color.white1))
+        sizeText.setPadding(dp10, 0, 0, dp20)
         sizeAdapter.addHeaderView(sizeText)
 
-        colorAdapter = WallpaperFilterAdapter(R.layout.layout_item_filter, Utils.getWallpaperColor(wallpaperType))
+        colorAdapter = WallpaperFilterAdapter(
+            R.layout.layout_item_filter,
+            Utils.getWallpaperColor(wallpaperType)
+        )
         colorAdapter.setOnItemChildClickListener { adapter, _, position ->
             colorAdapter.clearData(position)
-            viewModule.setData((adapter.data[position] as WallpaperFilterBean).id,1,wallpaperType)
+            viewModule.setData((adapter.data[position] as WallpaperFilterBean).id, 1, wallpaperType)
         }
         val colorText = TextView(this)
-        colorText.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+        colorText.layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         colorText.text = "壁纸颜色"
         colorText.textSize = 16f
-        colorText.setTextColor(ContextCompat.getColor(this,R.color.white1))
-        colorText.setPadding(dp10,0,0,dp20)
+        colorText.setTextColor(ContextCompat.getColor(this, R.color.white1))
+        colorText.setPadding(dp10, 0, 0, dp20)
         colorAdapter.addHeaderView(colorText)
     }
 
@@ -125,13 +148,13 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         val fragmentList = ArrayList<Fragment>()
         val desktopFragment = MainFragment()
         val desktopBundle = Bundle()
-        desktopBundle.putInt("wallpaperType",1)
+        desktopBundle.putInt("wallpaperType", 1)
         desktopFragment.arguments = desktopBundle
         fragmentList.add(desktopFragment)
 
         val phoneFragment = MainFragment()
         val phoneBundle = Bundle()
-        phoneBundle.putInt("wallpaperType",2)
+        phoneBundle.putInt("wallpaperType", 2)
         phoneFragment.arguments = phoneBundle
         fragmentList.add(phoneFragment)
 
@@ -140,9 +163,9 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         titleList.add("手机壁纸")
 
         pagerAdapter = ViewPagerAdapter(
-                supportFragmentManager,
-                titleList,
-                fragmentList
+            supportFragmentManager,
+            titleList,
+            fragmentList
         )
 
         binding.vpMain.adapter = pagerAdapter
@@ -176,6 +199,9 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
             binding.menuFilter.toggle(true)
             SnackbarUtils.dismiss()
         }
+        if (binding.drawLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawLayout.closeDrawer(GravityCompat.START)
+        }
     }
 
     private fun initTypeView() {
@@ -190,29 +216,46 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     }
 
     override fun choiceColor() {
-        filterList.layoutManager = GridLayoutManager(this,3)
+        filterList.layoutManager = GridLayoutManager(this, 3)
         filterList.adapter = colorAdapter
-        val params = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+        val params = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         SnackbarUtils.with(binding.menuFilter).setDuration(SnackbarUtils.LENGTH_INDEFINITE).show()
         SnackbarUtils.removeView(filterList)
-        SnackbarUtils.addView(filterList,params)
+        SnackbarUtils.addView(filterList, params)
     }
 
     override fun choiceStyle() {
-        filterList.layoutManager = GridLayoutManager(this,4)
+        filterList.layoutManager = GridLayoutManager(this, 4)
         filterList.adapter = styleAdapter
-        val params = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+        val params = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         SnackbarUtils.with(binding.menuFilter).setDuration(SnackbarUtils.LENGTH_INDEFINITE).show()
         SnackbarUtils.removeView(filterList)
-        SnackbarUtils.addView(filterList,params)
+        SnackbarUtils.addView(filterList, params)
     }
 
     override fun choiceSize() {
-        filterList.layoutManager = GridLayoutManager(this,3)
+        filterList.layoutManager = GridLayoutManager(this, 3)
         filterList.adapter = sizeAdapter
-        val params = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+        val params = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         SnackbarUtils.with(binding.menuFilter).setDuration(SnackbarUtils.LENGTH_INDEFINITE).show()
         SnackbarUtils.removeView(filterList)
-        SnackbarUtils.addView(filterList,params)
+        SnackbarUtils.addView(filterList, params)
+    }
+
+    override fun skipToCollection() {
+        CollectDownloadActivity.start(this, 1)
+    }
+
+    override fun skipToDownload() {
+        CollectDownloadActivity.start(this, 2)
     }
 }

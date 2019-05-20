@@ -57,10 +57,10 @@ class WallpaperBrowserDialogFragment : DialogFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id) {
             R.id.tv_lock_screen -> {
-                viewModel.setWallpaper(1,activity)
+                viewModel.setWallpaper(1,activity as WallpaperViewerActivity?)
             }
             R.id.tv_main_screen -> {
-                viewModel.setWallpaper(2,activity)
+                viewModel.setWallpaper(2,activity as WallpaperViewerActivity?)
             }
             R.id.tv_cancel -> dismissAllowingStateLoss()
         }

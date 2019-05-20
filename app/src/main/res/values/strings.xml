@@ -14,4 +14,8 @@
     <string name="lock_screen_browser">锁屏浏览</string>
     <string name="main_screen_browser">主屏浏览</string>
     <string name="cancel">取消</string>
+    <string name="my_download">我的下载</string>
+    <string name="my_collection">我的收藏</string>
+    <string name="delete">删除</string>
+    <string name="set_wallpaper_desc">设置为壁纸</string>
 </resources>

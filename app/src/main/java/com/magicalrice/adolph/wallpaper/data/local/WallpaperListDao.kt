@@ -12,6 +12,9 @@ interface WallpaperListDao {
     @Query("SELECT * FROM collect WHERE imgPath == (:imgUrl)")
     fun findWallpaper(imgUrl: String) : LiveData<List<WallpaperCollectBean>>
 
+    @Query("SELECT * FROM collect WHERE type == (:type)")
+    fun loadAllWallpaper(type: Int) : LiveData<List<WallpaperCollectBean>>
+
     @Delete
     fun deleteWallpaer(wallpaperBean: WallpaperCollectBean)
 }

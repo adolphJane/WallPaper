@@ -87,7 +87,7 @@ class WallpaperCollectionActivity(override val layoutId: Int = R.layout.activity
             if (view.id == R.id.img_root) {
                 val bean = adapter.data[position] as GalleryImageBean
                 if (binding.rvList.currentItem == position) {
-                    WallpaperViewerActivity.start(this,bean,view.findViewById(R.id.image))
+                    WallpaperViewerActivity.start(this,bean,view.findViewById(R.id.image), wallpaperType, false)
                 } else {
                     binding.rvList.smoothScrollToPosition(position)
                 }
