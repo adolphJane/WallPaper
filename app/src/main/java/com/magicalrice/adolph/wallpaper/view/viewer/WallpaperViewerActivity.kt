@@ -1,9 +1,7 @@
 package com.magicalrice.adolph.wallpaper.view.viewer
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.FragmentActivity
@@ -37,12 +35,11 @@ class WallpaperViewerActivity(override val layoutId: Int = R.layout.activity_wal
         binding.isDownload = isDownload
 
         viewModel.loadCurrentWallpaper(imgBean?.imgSrc ?: "",this)
-        viewModel.initAnimator(binding.tvDelete,binding.rlBottombar,isDownload)
+        viewModel.initAnimator(binding.llDownload,binding.rlBottombar,isDownload)
 
         GlideApp.with(this)
             .asBitmap()
             .load(imgBean?.imgSrc)
-            .centerInside()
             .into(binding.imgView)
     }
 
@@ -56,6 +53,10 @@ class WallpaperViewerActivity(override val layoutId: Int = R.layout.activity_wal
 
     override fun onCollect() {
         viewModel.collectWallpaper(this, wallpaperType)
+    }
+
+    override fun onDelete() {
+        viewModel.deleteWallpaper(this, imgBean?.imgSrc ?: "")
     }
 
     override fun showWallpaper() {

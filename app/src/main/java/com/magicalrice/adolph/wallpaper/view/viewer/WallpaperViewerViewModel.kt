@@ -2,10 +2,11 @@ package com.magicalrice.adolph.wallpaper.view.viewer
 
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.Application
 import android.app.WallpaperManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.view.Gravity
 import android.view.View
@@ -23,6 +24,7 @@ import com.magicalrice.adolph.wallpaper.view.base.BaseViewModel
 import com.magicalrice.adolph.wallpaper.widget.GlideApp
 import com.magicalrice.adolph.wallpaper.widget.ToastCustomView
 import java.io.File
+import java.io.IOException
 import java.lang.ref.WeakReference
 
 class WallpaperViewerViewModel(application: Application) : BaseViewModel(application) {
@@ -30,6 +32,7 @@ class WallpaperViewerViewModel(application: Application) : BaseViewModel(applica
     val wallpaper = MutableLiveData<WallpaperCollectBean>()
     private var imgPath = ""
     private var isDownload: Boolean = false
+    private var isDownloading: Boolean = false
     private var animatorDelete: ObjectAnimator? = null
     private var animatorBottom: ObjectAnimator? = null
     private var animatorDeleteRe: ObjectAnimator? = null
@@ -56,11 +59,7 @@ class WallpaperViewerViewModel(application: Application) : BaseViewModel(applica
                     dao.deleteWallpaer(wallpaper.value!!)
                 }
             })
-            val view = ToastCustomView(activity)
-            view.setToastContent("取消收藏")
-            view.setToastIcon(R.drawable.ic_success, ToastCustomView.LEFT)
-            ToastUtils.setGravity(Gravity.CENTER, 0, 0)
-                .showCustomShort(view)
+            showCustomToast(activity, "取消收藏",false)
         } else {
             val bean = WallpaperCollectBean(type = type,imgPath = imgPath)
             RxUtils.doOnIOThread(object : IOTask {
@@ -68,11 +67,7 @@ class WallpaperViewerViewModel(application: Application) : BaseViewModel(applica
                     dao.insertWallpaper(bean)
                 }
             })
-            val view = ToastCustomView(activity)
-            view.setToastContent("收藏成功")
-            view.setToastIcon(R.drawable.ic_success, ToastCustomView.LEFT)
-            ToastUtils.setGravity(Gravity.CENTER, 0, 0)
-                .showCustomShort(view)
+            showCustomToast(activity, "收藏成功",true)
         }
     }
 
@@ -81,42 +76,69 @@ class WallpaperViewerViewModel(application: Application) : BaseViewModel(applica
         if (type == 1) {
             val appDir = File(activity.getExternalFilesDir(null), "wallpaper/desktop/$symbol.jpg")
             if (appDir.exists()) {
-                showToast("该壁纸已经保存")
+                showCustomToast(activity, "该壁纸已经保存",false)
                 return
             }
         } else {
             val appDir = File(activity.getExternalFilesDir(null), "wallpaper/phone/$symbol.jpg")
             if (appDir.exists()) {
-                showToast("该壁纸已经保存")
+                showCustomToast(activity, "该壁纸已经保存",false)
                 return
             }
         }
-        GlideApp.with(activity)
-            .asBitmap()
-            .load(imgPath)
-            .into(object : SimpleTarget<Bitmap>() {
-                override fun onResourceReady(
-                    resource: Bitmap,
-                    transition: Transition<in Bitmap>?
-                ) {
-                    BitmapUtils.saveImageToGallery(activity,if (type == 1) "wallpaper/desktop" else "wallpaper/phone",resource, symbol, object : ImageFinishListener {
-                        override fun imgFinish(path: String) {
-                            showToast("壁纸保存完成")
-                        }
-                    })
-                }
-            })
+        if (!isDownloading) {
+            isDownloading = true
+            GlideApp.with(activity)
+                .asBitmap()
+                .load(imgPath)
+                .into(object : SimpleTarget<Bitmap>() {
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: Transition<in Bitmap>?
+                    ) {
+                        BitmapUtils.saveImageToGallery(activity,if (type == 1) "wallpaper/desktop" else "wallpaper/phone",resource, symbol, object : ImageFinishListener {
+                            override fun imgFinish(path: String) {
+                                showCustomToast(activity, "壁纸保存完成",true)
+                                isDownloading = false
+                            }
+                        })
+                    }
+
+                    override fun onLoadFailed(errorDrawable: Drawable?) {
+                        super.onLoadFailed(errorDrawable)
+                        isDownloading = false
+                    }
+                })
+        } else {
+            showCustomToast(activity, "正在下载中...", false)
+        }
     }
 
-    fun initAnimator(tvDelete: View?, bottomBar: View?, isDownload: Boolean) {
+    fun deleteWallpaper(activity: FragmentActivity, path: String) {
+        if (path.isNotEmpty()) {
+            try {
+                val file = File(path)
+                if (file.exists()) {
+                    file.delete()
+                    showCustomToast(activity, "删除成功", true)
+                } else {
+                    showCustomToast(activity, "图片不存在", false)
+                }
+            } catch (e: IOException) {
+                showCustomToast(activity, "删除失败", false)
+            }
+        }
+    }
+
+    fun initAnimator(downloadBottomBar: View?, bottomBar: View?, isDownload: Boolean) {
         this.isDownload = isDownload
-        tvDelete?.let {
+        downloadBottomBar?.let {
             it.post {
                 val deleteBarHeight = it.height.toFloat()
-                animatorDelete = ObjectAnimator.ofFloat(tvDelete, "translationY", 0f, deleteBarHeight)
+                animatorDelete = ObjectAnimator.ofFloat(downloadBottomBar, "translationY", 0f, deleteBarHeight)
                     .setDuration(300)
                 animatorDelete?.interpolator = AccelerateInterpolator()
-                animatorDeleteRe = ObjectAnimator.ofFloat(tvDelete, "translationY", deleteBarHeight, 0f)
+                animatorDeleteRe = ObjectAnimator.ofFloat(downloadBottomBar, "translationY", deleteBarHeight, 0f)
                     .setDuration(300)
                 animatorDeleteRe?.interpolator = AccelerateInterpolator()
             }
@@ -164,10 +186,29 @@ class WallpaperViewerViewModel(application: Application) : BaseViewModel(applica
         }
     }
 
+    private fun showCustomToast(activity: FragmentActivity,content: String,isSuccess: Boolean) {
+        val view = ToastCustomView(activity)
+        view.setToastContent(content)
+        view.setToastIcon(if (isSuccess) R.drawable.ic_success else R.drawable.ic_error, ToastCustomView.LEFT)
+        ToastUtils.setGravity(Gravity.CENTER, 0, 0)
+            .showCustomShort(view)
+    }
+
     @SuppressLint("InlinedApi")
     fun setWallpaper(type: Int, activity: WallpaperViewerActivity?) {
         activity?.let {
-            SetWallpaperTask(WeakReference(it), imgPath, if (type == 1) WallpaperManager.FLAG_LOCK else WallpaperManager.FLAG_SYSTEM).execute()
+            if (isDownload) {
+                try {
+                    val bitmap = BitmapFactory.decodeFile(imgPath)
+                    if (Build.VERSION.SDK_INT >= 24) WallpaperUtils.getInstance().setCroppedBitmap(it,bitmap,if (type == 1) WallpaperManager.FLAG_LOCK else WallpaperManager.FLAG_SYSTEM) else WallpaperUtils.getInstance().setCroppedBitmap(it,bitmap)
+                    dismissDialog()
+                    showToast("设置壁纸成功")
+                } catch (e: IOException) {
+                    showToast("设置壁纸失败")
+                }
+            } else {
+                SetWallpaperTask(WeakReference(it), imgPath, if (type == 1) WallpaperManager.FLAG_LOCK else WallpaperManager.FLAG_SYSTEM).execute()
+            }
         }
     }
 

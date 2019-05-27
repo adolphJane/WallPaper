@@ -14,7 +14,6 @@ import com.magicalrice.adolph.wallpaper.R
 import com.magicalrice.adolph.wallpaper.adapter.GalleryCollectionAdapter
 import com.magicalrice.adolph.wallpaper.bean.GalleryImageBean
 import com.magicalrice.adolph.wallpaper.databinding.ActivityWallpaperCollectionBinding
-import com.magicalrice.adolph.wallpaper.databinding.ActivityWallpaperViewerBinding
 import com.magicalrice.adolph.wallpaper.view.base.BaseActivity
 import com.magicalrice.adolph.wallpaper.view.viewer.WallpaperViewerActivity
 import com.yarolegovich.discretescrollview.DSVOrientation

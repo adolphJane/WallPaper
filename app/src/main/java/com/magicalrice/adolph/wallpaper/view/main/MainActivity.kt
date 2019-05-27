@@ -146,21 +146,21 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
     private fun initTabPager() {
         val fragmentList = ArrayList<Fragment>()
-        val desktopFragment = MainFragment()
-        val desktopBundle = Bundle()
-        desktopBundle.putInt("wallpaperType", 1)
-        desktopFragment.arguments = desktopBundle
-        fragmentList.add(desktopFragment)
-
         val phoneFragment = MainFragment()
         val phoneBundle = Bundle()
         phoneBundle.putInt("wallpaperType", 2)
         phoneFragment.arguments = phoneBundle
         fragmentList.add(phoneFragment)
 
+        val desktopFragment = MainFragment()
+        val desktopBundle = Bundle()
+        desktopBundle.putInt("wallpaperType", 1)
+        desktopFragment.arguments = desktopBundle
+        fragmentList.add(desktopFragment)
+
         val titleList = arrayListOf<String>()
-        titleList.add("桌面壁纸")
         titleList.add("手机壁纸")
+        titleList.add("桌面壁纸")
 
         pagerAdapter = ViewPagerAdapter(
             supportFragmentManager,

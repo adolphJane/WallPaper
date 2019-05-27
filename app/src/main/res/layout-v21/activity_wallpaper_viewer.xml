@@ -1,98 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View" />
+        <import type="android.view.View"/>
         <variable
-            name="viewModel"
-            type="com.magicalrice.adolph.wallpaper.view.viewer.WallpaperViewerViewModel" />
+                name="viewModel"
+                type="com.magicalrice.adolph.wallpaper.view.viewer.WallpaperViewerViewModel"/>
 
         <variable
-            name="listener"
-            type="com.magicalrice.adolph.wallpaper.view.viewer.WallpaperViewerListener" />
+                name="listener"
+                type="com.magicalrice.adolph.wallpaper.view.viewer.WallpaperViewerListener"/>
 
         <variable
-            name="isDownload"
-            type="boolean" />
+                name="isDownload"
+                type="boolean"/>
     </data>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/gray2">
-
-        <com.github.chrisbanes.photoview.PhotoView
-            android:id="@+id/img_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:onClick="@{v -> listener.showWallpaper()}"
-            android:scaleType="centerInside"
-            android:transitionName="@string/transition_image_name" />
+            android:background="@color/gray2">
 
-        <TextView
-            android:id="@+id/tv_delete"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/red"
-            android:layout_alignParentBottom="true"
-            android:text="@string/delete"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:textColor="@color/white1"
-            android:visibility="@{isDownload ? View.VISIBLE : View.GONE}"/>
+        <com.github.chrisbanes.photoview.PhotoView
+                android:id="@+id/img_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:onClick="@{v -> listener.showWallpaper()}"
+                android:scaleType="center"
+                android:transitionName="@string/transition_image_name"/>
 
         <LinearLayout
-            android:id="@+id/rl_bottombar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/black5"
-            android:visibility="@{isDownload ? View.GONE : View.VISIBLE}">
+                android:id="@+id/ll_download"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/black5"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true"
+                android:visibility="@{isDownload ? View.VISIBLE : View.GONE}">
+            <TextView
+                    android:id="@+id/tv_set"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/browse"
+                    android:textSize="12sp"
+                    android:paddingTop="5dp"
+                    android:gravity="center"
+                    android:drawablePadding="2dp"
+                    android:drawableTop="@drawable/ic_browse"
+                    android:onClick="@{v -> listener.onBrowser()}"
+                    android:textColor="@color/white1"/>
+            <TextView
+                    android:id="@+id/tv_delete"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/delete"
+                    android:textSize="12sp"
+                    android:paddingTop="5dp"
+                    android:gravity="center"
+                    android:drawablePadding="2dp"
+                    android:drawableTop="@drawable/ic_delete"
+                    android:onClick="@{v -> listener.onDelete()}"
+                    android:textColor="@color/white1"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/rl_bottombar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/black5"
+                android:visibility="@{isDownload ? View.GONE : View.VISIBLE}">
 
             <TextView
-                android:id="@+id/img_browse"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/ic_browse"
-                android:drawablePadding="2dp"
-                android:gravity="center"
-                android:onClick="@{v -> listener.onBrowser()}"
-                android:text="@string/browse"
-                android:paddingTop="5dp"
-                android:textColor="@color/white1"
-                android:textSize="12sp" />
+                    android:id="@+id/img_browse"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/ic_browse"
+                    android:drawablePadding="2dp"
+                    android:gravity="center"
+                    android:onClick="@{v -> listener.onBrowser()}"
+                    android:text="@string/browse"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/white1"
+                    android:textSize="12sp"/>
 
             <TextView
-                android:id="@+id/img_download"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/ic_download"
-                android:drawablePadding="2dp"
-                android:gravity="center"
-                android:onClick="@{v -> listener.onDownload()}"
-                android:text="@string/download"
-                android:paddingTop="5dp"
-                android:textColor="@color/white1"
-                android:textSize="12sp" />
+                    android:id="@+id/img_download"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/ic_download"
+                    android:drawablePadding="2dp"
+                    android:gravity="center"
+                    android:onClick="@{v -> listener.onDownload()}"
+                    android:text="@string/download"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/white1"
+                    android:textSize="12sp"/>
 
             <TextView
-                android:id="@+id/img_collect"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/selector_collect"
-                android:drawablePadding="2dp"
-                android:gravity="center"
-                android:onClick="@{v -> listener.onCollect()}"
-                android:text="@string/collect"
-                android:textColor="@color/white1"
-                android:textSize="12sp"
-                android:paddingTop="5dp"
-                app:isSelected="@{viewModel.wallpaper == null ? false : true}" />
+                    android:id="@+id/img_collect"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/selector_collect"
+                    android:drawablePadding="2dp"
+                    android:gravity="center"
+                    android:onClick="@{v -> listener.onCollect()}"
+                    android:text="@string/collect"
+                    android:textColor="@color/white1"
+                    android:textSize="12sp"
+                    android:paddingTop="5dp"
+                    app:isSelected="@{viewModel.wallpaper == null ? false : true}"/>
         </LinearLayout>
     </RelativeLayout>
 </layout>

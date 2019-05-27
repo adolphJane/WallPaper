@@ -20,21 +20,46 @@
             android:id="@+id/img_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerInside"
             android:layout_centerInParent="true"
+            android:scaleType="center"
             android:onClick="@{v -> listener.showWallpaper()}"/>
 
-        <TextView
-            android:id="@+id/tv_delete"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/red"
-            android:layout_alignParentBottom="true"
-            android:text="@string/delete"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:textColor="@color/white1"
-            android:visibility="@{isDownload ? View.VISIBLE : View.GONE}"/>
+
+        <LinearLayout
+                android:id="@+id/ll_download"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/black5"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true"
+                android:visibility="@{isDownload ? View.VISIBLE : View.GONE}">
+            <TextView
+                    android:id="@+id/tv_set"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/browse"
+                    android:textSize="12sp"
+                    android:paddingTop="5dp"
+                    android:gravity="center"
+                    android:drawablePadding="2dp"
+                    android:drawableTop="@drawable/ic_browse"
+                    android:onClick="@{v -> listener.onBrowser()}"
+                    android:textColor="@color/white1"/>
+            <TextView
+                    android:id="@+id/tv_delete"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/delete"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:drawablePadding="2dp"
+                    android:drawableTop="@drawable/ic_delete"
+                    android:onClick="@{v -> listener.onDelete()}"
+                    android:textColor="@color/white1"/>
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"

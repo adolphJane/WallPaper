@@ -10,12 +10,11 @@ import com.magicalrice.adolph.wallpaper.R
 import com.magicalrice.adolph.wallpaper.adapter.WallpaperCollectAdapter
 import com.magicalrice.adolph.wallpaper.adapter.WallpaperDownloadAdapter
 import com.magicalrice.adolph.wallpaper.bean.GalleryImageBean
-import com.magicalrice.adolph.wallpaper.bean.WallpaperBean
 import com.magicalrice.adolph.wallpaper.bean.WallpaperCollectBean
 import com.magicalrice.adolph.wallpaper.databinding.FragmentLocalBinding
 import com.magicalrice.adolph.wallpaper.view.base.BaseFragment
-import com.magicalrice.adolph.wallpaper.view.collection.WallpaperCollectionActivity
 import com.magicalrice.adolph.wallpaper.view.viewer.WallpaperViewerActivity
+import com.magicalrice.adolph.wallpaper.widget.EmptyView
 import com.magicalrice.adolph.wallpaper.widget.WallpaperHomeView
 import java.io.File
 
@@ -56,12 +55,12 @@ class LocalFragment : BaseFragment<FragmentLocalBinding>() {
                 )
                 getBinding().ryLocalList.layoutManager = GridLayoutManager(context, 2)
             }
+            val empty = EmptyView(activity)
+            empty.setTitle("暂无收藏图片，快去收藏吧!")
+            empty.setImage(R.drawable.ic_empty)
+            collectAdapter.emptyView = empty
 
             getBinding().ryLocalList.adapter = collectAdapter
-
-            viewModule.loadCollect(wallpaperType).observe(this, Observer {
-                collectAdapter.setNewData(it)
-            })
 
             collectAdapter.setOnItemClickListener { adapter, view, position ->
                 if (position < adapter.data.size) {
@@ -86,11 +85,12 @@ class LocalFragment : BaseFragment<FragmentLocalBinding>() {
                 getBinding().ryLocalList.layoutManager = GridLayoutManager(context, 2)
             }
 
-            getBinding().ryLocalList.adapter = downloadAdapter
+            val empty = EmptyView(activity)
+            empty.setTitle("暂无下载图片，快去下载吧!")
+            empty.setImage(R.drawable.ic_empty)
+            downloadAdapter.emptyView = empty
 
-            viewModule.loadDownload(wallpaperType,activity)?.let {
-                downloadAdapter.setNewData(it)
-            }
+            getBinding().ryLocalList.adapter = downloadAdapter
 
             downloadAdapter.setOnItemClickListener { adapter, view, position ->
                 if (position < adapter.data.size) {
@@ -99,6 +99,19 @@ class LocalFragment : BaseFragment<FragmentLocalBinding>() {
                     val image = (view.findViewById(R.id.homeView) as WallpaperHomeView).getImage()
                     WallpaperViewerActivity.start(activity,gallery,image,wallpaperType,true)
                 }
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (type == 1) {
+            viewModule.loadCollect(wallpaperType).observe(this, Observer {
+                collectAdapter.setNewData(it)
+            })
+        } else {
+            viewModule.loadDownload(wallpaperType,activity)?.let {
+                downloadAdapter.setNewData(it)
             }
         }
     }
