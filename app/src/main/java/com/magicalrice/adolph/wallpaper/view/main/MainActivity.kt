@@ -35,7 +35,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
     private lateinit var colorAdapter: WallpaperFilterAdapter
     private lateinit var filterList: RecyclerView
     private lateinit var pagerAdapter: ViewPagerAdapter
-    private var wallpaperType = 1
+    private var wallpaperType = 2
     private var dp10 = 0
     private var dp20 = 0
 
