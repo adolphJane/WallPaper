@@ -2,7 +2,7 @@ package com.magicalrice.adolph.wallpaper.view.local
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -39,7 +39,7 @@ class LocalFragment : BaseFragment<FragmentLocalBinding>() {
         type = arguments?.getInt("type", 1) ?: 1
         wallpaperType = arguments?.getInt("wallpaperType", 1) ?: 1
 
-        viewModule = ViewModelProviders.of(this).get(LocalViewModel::class.java)
+        viewModule = ViewModelProvider(this).get(LocalViewModel::class.java)
 
         if (type == 1) {
             if (wallpaperType == 1) {

@@ -2,7 +2,7 @@ package com.magicalrice.adolph.wallpaper.view.main
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +22,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         get() = R.layout.fragment_main
 
     override fun onInit(savedInstanceState: Bundle?) {
-        viewModule = ViewModelProviders.of(activity!!).get(MainViewModule::class.java)
+        viewModule = ViewModelProvider(activity!!).get(MainViewModule::class.java)
         wallpaperType = arguments?.getInt("wallpaperType") ?: 1
         initHeader()
         showWallPaper()

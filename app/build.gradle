@@ -49,7 +49,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.appcompat:appcompat:1.0.2"
+    implementation "androidx.appcompat:appcompat:1.1.0"
     implementation "com.google.android.material:material:$supportLibraryVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintVersion"
     testImplementation "androidx.test.ext:junit:$junitVersion"
@@ -78,7 +78,7 @@ dependencies {
     //arch
     implementation "androidx.lifecycle:lifecycle-runtime:$archVersion"
     implementation "androidx.lifecycle:lifecycle-extensions:$archVersion"
-    kapt "androidx.lifecycle:lifecycle-compiler:$archVersion"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$archVersion"
 
     //gson
     implementation "com.google.code.gson:gson:$gsonVersion"
@@ -126,7 +126,7 @@ dependencies {
     implementation 'com.getbase:floatingactionbutton:1.10.1'
 
     //room
-    implementation "androidx.room:room-runtime:2.1.0-beta01"
-    implementation "androidx.room:room-rxjava2:2.1.0-beta01"
-    kapt "androidx.room:room-compiler:2.1.0-beta01"
+    implementation "androidx.room:room-runtime:2.2.3"
+    implementation "androidx.room:room-rxjava2:2.2.3"
+    kapt "androidx.room:room-compiler:2.2.3"
 }

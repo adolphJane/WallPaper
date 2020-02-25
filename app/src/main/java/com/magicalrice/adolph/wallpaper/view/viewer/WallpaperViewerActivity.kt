@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.jaeger.library.StatusBarUtil
 import com.magicalrice.adolph.wallpaper.R
 import com.magicalrice.adolph.wallpaper.bean.GalleryImageBean
@@ -24,7 +24,7 @@ class WallpaperViewerActivity(override val layoutId: Int = R.layout.activity_wal
         imgBean = intent.getParcelableExtra("img")
         wallpaperType = intent.getIntExtra("wallpaperType",1)
         isDownload = intent.getBooleanExtra("isDownload",false)
-        viewModel = ViewModelProviders.of(this).get(WallpaperViewerViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(WallpaperViewerViewModel::class.java)
         binding = getDataBinding()
 
         StatusBarUtil.setTranslucentForImageView(this,0,null)

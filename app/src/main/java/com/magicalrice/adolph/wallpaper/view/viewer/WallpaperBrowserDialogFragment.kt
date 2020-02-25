@@ -12,7 +12,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.magicalrice.adolph.wallpaper.R
 
 class WallpaperBrowserDialogFragment : DialogFragment(), View.OnClickListener {
@@ -23,7 +23,7 @@ class WallpaperBrowserDialogFragment : DialogFragment(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(activity!!).get(WallpaperViewerViewModel::class.java)
+        viewModel = ViewModelProvider(activity!!).get(WallpaperViewerViewModel::class.java)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -45,7 +45,7 @@ class WallpaperBrowserDialogFragment : DialogFragment(), View.OnClickListener {
 
     override fun onStart() {
         super.onStart()
-        val window = dialog.window
+        val window = dialog?.window
         val params = window?.attributes
         window?.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(context!!, android.R.color.transparent)))
         params?.gravity = Gravity.BOTTOM

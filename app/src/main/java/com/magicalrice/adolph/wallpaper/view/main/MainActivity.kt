@@ -7,7 +7,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
@@ -41,7 +41,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
     override fun onInit(savedInstanceState: Bundle?) {
         binding = getDataBinding()
-        viewModule = ViewModelProviders.of(this).get(MainViewModule::class.java)
+        viewModule = ViewModelProvider(this).get(MainViewModule::class.java)
         initToolbar()
         initView()
         initTypeView()

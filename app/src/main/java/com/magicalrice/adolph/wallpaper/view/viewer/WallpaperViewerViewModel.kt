@@ -121,6 +121,7 @@ class WallpaperViewerViewModel(application: Application) : BaseViewModel(applica
                 if (file.exists()) {
                     file.delete()
                     showCustomToast(activity, "删除成功", true)
+                    activity.finish()
                 } else {
                     showCustomToast(activity, "图片不存在", false)
                 }

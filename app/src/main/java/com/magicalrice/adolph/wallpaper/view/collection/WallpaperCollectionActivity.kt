@@ -7,7 +7,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.chad.library.adapter.base.BaseViewHolder
 import com.jaeger.library.StatusBarUtil
 import com.magicalrice.adolph.wallpaper.R
@@ -39,7 +39,7 @@ class WallpaperCollectionActivity(override val layoutId: Int = R.layout.activity
         wallpaperType = intent.getIntExtra("wallpaperType", 1)
         href = intent.getStringExtra("href")
         title = intent.getStringExtra("title")
-        viewModel = ViewModelProviders.of(this).get(WallpaperCollectionViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(WallpaperCollectionViewModel::class.java)
         binding = getDataBinding()
         viewModel.getWallpaperCollectionNum(href, this)
 
